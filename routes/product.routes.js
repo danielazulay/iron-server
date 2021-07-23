@@ -9,7 +9,7 @@ router.post("/newProduct",isAuthenticated,async(req,res,next)=>{
     try{
         const data= req.body
 
-const resposta = productModule.create({...data})
+const resposta = await productModule.create({...data})
 
 return res.status(200).json(resposta)
 
