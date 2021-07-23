@@ -3,6 +3,7 @@ const express = require("express");
 
 const connectToDb = require("./config/db.config");
 const userRouter = require("./routes/user.routes");
+const productRouter = require("./routes/product.routes");
 
 const app = express();
 
@@ -16,7 +17,11 @@ async function init() {
 
     app.use("/", userRouter);
 
-    app.listen(4000, () => console.log("Servidor rodando na porta 4000!"));
+    app.use("/", productRouter);
+
+
+
+    app.listen(3000, () => console.log("Servidor rodando na porta 4000!"));
   } catch (err) {
     console.log("Erro ao conectar ao banco de dados!", err);
     process.exit(1);
