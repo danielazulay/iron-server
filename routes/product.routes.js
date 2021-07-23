@@ -50,5 +50,15 @@ return res.status(200).json({})
   }
 }
 );
+router.get("/getAllProducts",isAuthenticated,async(req,res,next)=>{
+try{
 
+    const data= req.body
+    const resposta = await productModule.find()
+    return res.status(200).json(resposta)
+} catch (err) {
+    next(err);
+  }   
+
+})
 module.exports = router;
