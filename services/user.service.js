@@ -8,6 +8,10 @@ class UserService {
     this.name = user.name;
     this.email = user.email;
     this.password = user.password;
+    this.document = user.document;
+    this.eddress = user.eddress;
+    this.birthDate = user.birthDate;
+    this.phoneNumber = user.phoneNumber;
   }
 
   isValid(field, validationRegex) {
@@ -54,6 +58,10 @@ class UserService {
       name: this.name,
       email: this.email,
       passwordHash: this.hashPassword(this.password),
+      document: this.document,
+      eddress: this.eddress,
+      birthDate: this.birthDate,
+      phoneNumber: this.phoneNumber,
     }).then((insertResult) => insertResult);
   }
 
