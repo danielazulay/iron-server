@@ -34,7 +34,7 @@ return res.status(200).json(resposta)
 
 })
 
-router.delete("/deleteProduct/:id",isAuthenticated,async(req,res,next)=>{
+router.delete("/deleteProduct/:id",isAuthenticated,isAdmin,async(req,res,next)=>{
 
 try{
     const {id} = req.params
