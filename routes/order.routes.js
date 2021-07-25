@@ -7,7 +7,7 @@ const attachCurrentUser = require("../middlewares/attachCurrentUser")
 const productModule = require("../models/Product.model")
 
 const orderModule = require("../models/Order.model")
-
+const isAdmin = require("../middlewares/isAdmin")
 
 
 router.post("/newOrder",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
@@ -17,8 +17,8 @@ router.post("/newOrder",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
         // Extrair o id do projeto dos parâmetros de rota
         try {
             const result = await orderModule.create({
-       
-              userId: req.currentUser._id
+              
+                userid: req.currentUser._id
             });
       
             return res.status(201).json(result);
@@ -30,5 +30,51 @@ router.post("/newOrder",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
 })
 
 
+router.get("/userOrders",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
+
+    try{
+
+        
+const result = await orderModule.find({userid:req.currentUser._id}).populate("Product")
+
+return res.status(200).json(result);
+
+    }catch(err){next(err)}
+})
+
+
+
+
+router.get("/allOrders",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
+
+    try{
+
+        
+const result = await orderModule.find().populate("Product")
+
+return res.status(200).json(result);
+
+    }catch(err){next(err)}
+})
+
+
+router.put("/insertPorducts/:id",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
+
+    try{
+
+        
+const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ ...req.body}})
+
+const productnew = await productModule.findOneAndUpdate({_id:result.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1} })
+
+
+if (result) {
+    return res.status(200).json(result);
+  }
+
+  return res.status(404).json({ error: "Projeto não encontrado." });
+
+    }catch(err){next(err)}
+})
 
 module.exports = router;
