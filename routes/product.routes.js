@@ -69,17 +69,21 @@ router.get("/search",isAuthenticated,async(req,res,next)=>{
     
     try{
 
-
-        const {category} =req.query
-        const {name} =req.query
+const {name} = req.query
+const {category} = req.query
+       
 
       
         
+if(category){
+       let productCategory = await productModule.find( {category: category} )
+       return res.status(200).json(productCategory); 
 
-          let productCategory = await productModule.find({ $or: [ {category: category}, {name:name } ] })
+}
+          let productname = await productModule.find({name:{$regex:name} } )
         
    
-            return res.json(productCategory); 
+            return res.status(200).json(productname); 
        
         } catch (err) {
             next(err);
