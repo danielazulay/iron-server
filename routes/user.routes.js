@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const UserService = require("../services/user.service");
+const userModel = require("../models/User.model")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
@@ -69,5 +70,20 @@ router.get("/profile", isAuthenticated, async (req, res, next) => {
     next(err);
   }
 });
+
+
+router.put("/editUser/:id", isAuthenticated, async (req, res, next) => {
+  try{
+
+    const formData = req.body
+    const {id} = req.params
+
+    const response = await userModel.findByIdAndUpdate( {_id: id}, { ...formData }, {new: true} )
+
+return res.status(200).json(response)
+  } catch(err) {
+    next(err)
+  }
+})
 
 module.exports = router;
