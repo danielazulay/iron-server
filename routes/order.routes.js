@@ -66,7 +66,7 @@ const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ .
 
 const productnew = await productModule.findOneAndUpdate({_id:result.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1} })
 
-
+ 
 if (result) {
     return res.status(200).json(result);
   }
