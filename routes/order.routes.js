@@ -63,9 +63,10 @@ router.put("/insertPorducts/:id",isAuthenticated,attachCurrentUser,async(req,res
     try{
 
         
-const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ ...req.body}})
+const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ ...req.body}},
+    { new: true })
 
-const productnew = await productModule.findOneAndUpdate({_id:result.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1} })
+const productnew = await productModule.findOneAndUpdate({_id:result.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1}}, { new: true } )
 
 
 if (result) {
@@ -76,5 +77,23 @@ if (result) {
 
     }catch(err){next(err)}
 })
+
+
+
+router.delete("/deleteOrder/:id",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
+
+    try{
+
+const resp = await orderModule.deleteOne({_id:req.params.id})
+
+if(resp.n>0){
+    return res.status(200).json({});
+}
+return res.status(404).json({ error: "Ordem não encontrado." });
+
+    }catch(err){next(err)}
+
+})
+
 
 module.exports = router;
