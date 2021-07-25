@@ -11,11 +11,12 @@ app.use(express.json());
 
 async function init() {
   try {
-    await connectToDb();
+    const db = await connectToDb();
 
     console.log("Conectado ao banco de dados!");
 
     app.use("/", userRouter);
+
 
     app.use("/", productRouter);
 
