@@ -15,11 +15,4 @@ const ProductSchema = new mongoose.Schema({
   img: { type: String, trim: true },
 });
 
-<<<<<<< HEAD
-ProductSchema.index({ "name": "text", "description": "text" });
-=======
-
-
->>>>>>> d9c50cea95da593c96d77c89a7c895f53dcac412
-
 module.exports = mongoose.model("Product", ProductSchema);
