@@ -1,12 +1,13 @@
 const router = require("express").Router();
 
+const isAdmin = require("../middlewares/isAdmin")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
 
 const productModule = require("../models/Product.model")
 
-router.post("/newProduct",isAuthenticated,async(req,res,next)=>{
+router.post("/newProduct",isAuthenticated,isAdmin,async(req,res,next)=>{
     try{
         const data= req.body
 
@@ -19,7 +20,7 @@ return res.status(200).json(resposta)
     }
 })
 
-router.put("/editProduct/:id",isAuthenticated,async(req,res,next)=>{
+router.put("/editProduct/:id",isAuthenticated,isAdmin,async(req,res,next)=>{
 try{
 
     const data= req.body
@@ -33,7 +34,7 @@ return res.status(200).json(resposta)
 
 })
 
-router.delete("/deleteProduct/:id",isAuthenticated,async(req,res,next)=>{
+router.delete("/deleteProduct/:id",isAuthenticated,isAdmin,async(req,res,next)=>{
 
 try{
     const {id} = req.params
