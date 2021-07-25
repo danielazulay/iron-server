@@ -15,6 +15,12 @@ const UserSchema = new mongoose.Schema({
   }),
   birthDate: { type: Date },
   phoneNumber: { type: String, trim: true },
+  role: {
+    type: String,
+    enum: ["ADMIN", "USER"],
+    required: true,
+    default: "USER",
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);
