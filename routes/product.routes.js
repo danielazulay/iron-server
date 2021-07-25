@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
 
@@ -61,4 +62,30 @@ try{
   }   
 
 })
+
+router.get("/search",isAuthenticated,async(req,res,next)=>{
+
+    
+    try{
+
+
+        const {category} =req.query
+        const {name} =req.query
+
+      
+        
+
+          let productCategory = await productModule.find({ $or: [ {category: category}, {name:name } ] })
+        
+   
+            return res.json(productCategory); 
+       
+        } catch (err) {
+            next(err);
+          } 
+       
+          
+      
+        
+    });
 module.exports = router;

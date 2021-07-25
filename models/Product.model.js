@@ -11,5 +11,6 @@ userid:[{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 img:{type:String,trim:true },
 
 })
+ProductSchema.index({ "name": "text", "description": "text" });
 
 module.exports = mongoose.model("Product", ProductSchema);
