@@ -17,16 +17,28 @@ router.post("/newOrder",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
         try {
             const result = await orderModule.create({
               
-                userid: req.currentUser._id
+                ...req.body
             });
-      
-            return res.status(201).json(result);
-          } catch (err) {
-            next(err);
-          }
+ 
+const resposta = new Promise((resolve, reject) => { 
+    req.body.products.map(async(item)=>{
+   
+    const productItem = await productModule.findOneAndUpdate({_id:item.productId},{$inc:{unity:-item.qtt}},{new:true})
+
+    const itenUpdated = await orderModule.findOneAndUpdate({_id:result._id},{$inc:{value:(productItem.price*item.qtt).toFixed(2)}},{new:true})
+
+resolve(productItem,itenUpdated)
 
 
 })
+})
+
+Promise.all(resposta).then((data)=>{ return res.status(200).json(data)}).catch(err => console.log(err) ) 
+return res.status(200).json(result)
+        }catch(err){next(err)}
+
+    })
+
 
 
 router.get("/userOrders",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
@@ -56,31 +68,7 @@ return res.status(200).json(result);
     }catch(err){next(err)}
 })
 
-
-router.put("/insertPorducts/:id",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
-
-    try{
-
-        
-const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ ...req.body}},
-    { new: true })
-
-const productnew = await productModule.findOneAndUpdate({_id:result.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1}}, { new: true } )
-
-      const deleteOrder = await orderModule.deleteOne({ _id: req.params.id })
-
-      if(deleteOrder.n > 0){
-          return res.status(200).json({})
-      }
-      return res.status(404).json({ error: "Projeto não encontrado." });
-  }catch(err){
-    next(err)
-  }
-})
-
-
-
-router.delete("/deleteOrder/:id",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
+router.delete("/deleteOrder/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 
     try{
 

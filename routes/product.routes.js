@@ -1,17 +1,18 @@
 const router = require("express").Router();
 
+const attachCurrentUser = require("../middlewares/attachCurrentUser");
 const isAdmin = require("../middlewares/isAdmin")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
-const attachCurrentUser = require("../middlewares/attachCurrentUser")
 const productModule = require("../models/Product.model")
 
-router.post("/newProduct",isAuthenticated,isAdmin,async(req,res,next)=>{
+router.post("/newProduct",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
     try{
         const data= req.body
 
-const resposta = await productModule.create({...data})
+const resposta = await productModule.create({userid:req.currentUser._id,
+    ...data})
 
 return res.status(200).json(resposta)
 
@@ -20,7 +21,7 @@ return res.status(200).json(resposta)
     }
 })
 
-router.put("/editProduct/:id",isAuthenticated,async(req,res,next)=>{
+router.put("/editProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 try{
 
     const data= req.body
@@ -34,7 +35,7 @@ return res.status(200).json(resposta)
 
 })
 
-router.delete("/deleteProduct/:id",isAuthenticated,async(req,res,next)=>{
+router.delete("/deleteProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 
 try{
     const {id} = req.params
@@ -52,7 +53,7 @@ return res.status(200).json({})
   }
 }
 );
-router.get("/getAllProducts",isAuthenticated,async(req,res,next)=>{
+router.get("/getAllProducts",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 try{
 
     const data= req.body
