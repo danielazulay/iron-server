@@ -18,10 +18,23 @@ router.post("/newOrder",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
         try {
             const result = await orderModule.create({
               
-                userid: req.currentUser._id
+                ...req.body
             });
+ 
+req.body.products.forEach(async(item)=>{
+   
+    const productItem = await productModule.findOneAndUpdate({_id:item.productId},{$inc:{unity:-item.qtt}},{new:true})
+    const update = await orderModule.findOneAndUpdate({_id:item.productId},{$inc:{value:productItem.price}},{new:true})
+    console.log("productItem--->",productItem)
+
+    console.log("item--->",item)
+    console.log("update--->",update)
+})
+ 
+ 
+ 
       
-            return res.status(201).json(result);
+            return res.status(200).json(result);
           } catch (err) {
             next(err);
           }
@@ -58,28 +71,7 @@ return res.status(200).json(result);
 })
 
 
-router.put("/insertPorducts/:id",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
 
-    try{
-
- const {id} = req.params
- 
-
-
-
-
-const productnew = await productModule.findOneAndUpdate({_id:req.body.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1}}, { new: true } )
-const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ ...req.body},$inc:{value:productnew.price}},{ new: true })
-
-
-if (result) {
-    return res.status(200).json(result);
-  }
-
-  return res.status(404).json({ error: "Projeto não encontrado." });
-
-    }catch(err){next(err)}
-})
 
 
 
