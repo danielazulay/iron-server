@@ -14,7 +14,7 @@ router.post("/signup", async (req, res, next) => {
 
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g;
     const passwordRegex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/g;
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g;
 
     if (!userService.isValid(userService.email, emailRegex)) {
       return res.status(400).json({
@@ -25,7 +25,7 @@ router.post("/signup", async (req, res, next) => {
     if (!userService.isValid(userService.password, passwordRegex)) {
       return res.status(400).json({
         error:
-          "O campo senha é obrigatório e precisa ter no mínimo 8 caracteres incluindo: letras maiúsculas e minúsculas, números, caracteres especiais.",
+          "O campo senha é obrigatório e precisa ter no mínimo 8 caracteres incluindo: letras maiúsculas e números.",
       });
     }
 

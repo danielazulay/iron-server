@@ -15,6 +15,16 @@ async function init() {
     const db = await connectToDb();
 
     console.log("Conectado ao banco de dados!");
+    
+    app.use("/", (req, res, next)=> {
+      res.setHeader("Access-Control-Allow-Origin","*");
+      res.setHeader("Access-Control-Allow-Methods","POST");
+      res.setHeader("Access-Control-Allow-Headers","Content-Type");
+      if (req.method === 'OPTIONS') {
+        return res.end();
+      }
+      next()
+    })
 
     app.use("/", userRouter);
 
@@ -25,7 +35,7 @@ async function init() {
 
 
 
-    app.listen(3000, () => console.log("Servidor rodando na porta 4000!"));
+    app.listen(4000, () => console.log("Servidor rodando na porta 4000!"));
   } catch (err) {
     console.log("Erro ao conectar ao banco de dados!", err);
     process.exit(1);
