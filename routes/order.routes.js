@@ -62,11 +62,14 @@ router.put("/insertPorducts/:id",isAuthenticated,attachCurrentUser,async(req,res
 
     try{
 
-        
-const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ ...req.body}},
-    { new: true })
+ const {id} = req.params
+ 
 
-const productnew = await productModule.findOneAndUpdate({_id:result.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1}}, { new: true } )
+
+
+
+const productnew = await productModule.findOneAndUpdate({_id:req.body.productid},{$push:{userid:req.currentUser._id} ,$inc:{unity:-1}}, { new: true } )
+const result = await orderModule.findOneAndUpdate({_id:req.params.id},{$push:{ ...req.body},$inc:{value:productnew.price}},{ new: true })
 
 
 if (result) {
