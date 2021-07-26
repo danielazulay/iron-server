@@ -12,6 +12,7 @@ class UserService {
     this.eddress = user.eddress;
     this.birthDate = user.birthDate;
     this.phoneNumber = user.phoneNumber;
+    this.role = user.role;
   }
 
   isValid(field, validationRegex) {
@@ -62,6 +63,7 @@ class UserService {
       eddress: this.eddress,
       birthDate: this.birthDate,
       phoneNumber: this.phoneNumber,
+      role: this.role,
     }).then((insertResult) => insertResult);
   }
 

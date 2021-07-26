@@ -4,31 +4,23 @@ const express = require("express");
 const connectToDb = require("./config/db.config");
 const userRouter = require("./routes/user.routes");
 const productRouter = require("./routes/product.routes");
-const orderRouter  = require("./routes/order.routes")
+const orderRouter = require("./routes/order.routes");
 
 const app = express();
-
+const cors = require("cors");
+app.use(cors({ origin: process.env.REACT_APP_URL }));
 app.use(express.json());
 
-async function init() {
-  try {
-    const db = await connectToDb();
+const db = connectToDb();
 
-    console.log("Conectado ao banco de dados!");
+console.log("Conectado ao banco de dados!");
 
-    app.use("/", userRouter);
+app.use("/", userRouter);
 
+app.use("/", productRouter);
 
-    app.use("/", productRouter);
+app.use("/", orderRouter);
 
-    app.use("/", orderRouter);
-
-
-
-    app.listen(3000, () => console.log("Servidor rodando na porta 4000!"));
-  } catch (err) {
-    console.log("Erro ao conectar ao banco de dados!", err);
-    process.exit(1);
-  }
-}
-init();
+app.listen(Number(process.env.PORT), () => {
+  console.log(`Server up and running at port ${process.env.PORT}`);
+});

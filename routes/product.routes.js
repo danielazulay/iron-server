@@ -4,10 +4,10 @@ const isAdmin = require("../middlewares/isAdmin")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
-
+const attachCurrentUser = require("../middlewares/attachCurrentUser")
 const productModule = require("../models/Product.model")
 
-router.post("/newProduct",isAuthenticated,async(req,res,next)=>{
+router.post("/newProduct",isAuthenticated,isAdmin,async(req,res,next)=>{
     try{
         const data= req.body
 
