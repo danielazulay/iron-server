@@ -22,7 +22,7 @@ return res.status(200).json(resposta)
     }
 })
 
-router.put("/editProduct/:id",isAuthenticated,isAdmin,async(req,res,next)=>{
+router.put("/editProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 try{
 
     const data= req.body
@@ -36,7 +36,7 @@ return res.status(200).json(resposta)
 
 })
 
-router.delete("/deleteProduct/:id",isAuthenticated,async(req,res,next)=>{
+router.delete("/deleteProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 
 try{
     const {id} = req.params
@@ -54,7 +54,7 @@ return res.status(200).json({})
   }
 }
 );
-router.get("/getAllProducts",isAuthenticated,async(req,res,next)=>{
+router.get("/getAllProducts",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 try{
 
     const data= req.body

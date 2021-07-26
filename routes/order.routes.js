@@ -21,26 +21,25 @@ router.post("/newOrder",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
                 ...req.body
             });
  
-req.body.products.forEach(async(item)=>{
+const resposta = new Promise((resolve, reject) => { 
+    req.body.products.map(async(item)=>{
    
     const productItem = await productModule.findOneAndUpdate({_id:item.productId},{$inc:{unity:-item.qtt}},{new:true})
-    const update = await orderModule.findOneAndUpdate({_id:item.productId},{$inc:{value:productItem.price}},{new:true})
-    console.log("productItem--->",productItem)
 
-    console.log("item--->",item)
-    console.log("update--->",update)
-})
- 
- 
- 
-      
-            return res.status(200).json(result);
-          } catch (err) {
-            next(err);
-          }
+    const itenUpdated = await orderModule.findOneAndUpdate({_id:result._id},{$inc:{value:(productItem.price*item.qtt).toFixed(2)}},{new:true})
+
+resolve(productItem,itenUpdated)
 
 
 })
+})
+
+Promise.all(resposta).then((data)=>{ return res.status(200).json(data)}).catch(err => console.log(err) ) 
+return res.status(200).json(result)
+        }catch(err){next(err)}
+
+    })
+
 
 
 router.get("/userOrders",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
@@ -75,7 +74,7 @@ return res.status(200).json(result);
 
 
 
-router.delete("/deleteOrder/:id",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
+router.delete("/deleteOrder/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 
     try{
 
