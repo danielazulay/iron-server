@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+const attachCurrentUser = require("../middlewares/attachCurrentUser");
 const isAdmin = require("../middlewares/isAdmin")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
@@ -18,7 +19,7 @@ router.post("/newProduct", isAuthenticated, async (req, res, next) => {
     }
 })
 
-router.put("/editProduct/:id",isAuthenticated,isAdmin,async(req,res,next)=>{
+router.put("/editProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 try{
 
     const data= req.body
@@ -32,7 +33,7 @@ return res.status(200).json(resposta)
 
 })
 
-router.delete("/deleteProduct/:id",isAuthenticated,isAdmin,async(req,res,next)=>{
+router.delete("/deleteProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 
 try{
     const {id} = req.params
@@ -50,7 +51,7 @@ return res.status(200).json({})
   }
 }
 );
-router.get("/getAllProducts",isAuthenticated,async(req,res,next)=>{
+router.get("/getAllProducts",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 try{
 
     const data= req.body
@@ -62,7 +63,7 @@ try{
 
 })
 
-router.get("/search",isAuthenticated,async(req,res,next)=>{
+router.get("/search",async(req,res,next)=>{
 
     
     try{

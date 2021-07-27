@@ -4,14 +4,17 @@ const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   validity: { type: Date, trim: true },
   unity: { type: Number, required: true },
+  price: { type: Number, required: true },
   description: { type: String, required: true, maxlength: 200 },
   category: {
     type: String,
     required: true,
-    enum: ["IPA", "Larger", "Pilsen"],
+    enum: ["leve", "Maltadas", "Lupuladas","Torradas","Frutadas","Sem Alccol","Sem Glutem"],
   },
-  size: { type: String, enum: ["350ml", "600ml", "1l"] },
+  alccol: { type: String, required: true },
+  size: { type: String, enum: ["310", "330", "355", "500","600"] },
   userid: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  bestUse:{type: Date},
   img: { type: String, trim: true },
 });
 
