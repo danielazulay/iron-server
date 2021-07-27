@@ -9,7 +9,7 @@ class UserService {
     this.email = user.email;
     this.password = user.password;
     this.document = user.document;
-    this.eddress = user.eddress;
+    this.address = user.address;
     this.birthDate = user.birthDate;
     this.phoneNumber = user.phoneNumber;
     this.role = user.role;
@@ -60,7 +60,7 @@ class UserService {
       email: this.email,
       passwordHash: this.hashPassword(this.password),
       document: this.document,
-      eddress: this.eddress,
+      address: this.address,
       birthDate: this.birthDate,
       phoneNumber: this.phoneNumber,
       role: this.role,

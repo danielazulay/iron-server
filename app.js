@@ -9,7 +9,7 @@ const cors = require("cors");
 
 
 const app = express();
-const cors = require("cors");
+
 app.use(cors({ origin: process.env.REACT_APP_URL }));
 app.use(express.json());
 
