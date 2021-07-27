@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
-  color: { type: String, trim: true },
+  validity: { type: Date, trim: true },
   unity: { type: Number, required: true },
   description: { type: String, required: true, maxlength: 200 },
   category: {
     type: String,
     required: true,
-    enum: ["eletronics", "kitchen Appliances", "clothings"],
+    enum: ["IPA", "Larger", "Pilsen"],
   },
-  size: { type: String, enum: ["XS", "SM", "L", "XL"] },
+  size: { type: String, enum: ["350ml", "600ml", "1l"] },
   userid: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   img: { type: String, trim: true },
 });

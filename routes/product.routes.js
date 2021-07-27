@@ -4,18 +4,16 @@ const isAdmin = require("../middlewares/isAdmin")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
-
 const productModule = require("../models/Product.model")
 
-router.post("/newProduct",isAuthenticated,async(req,res,next)=>{
+router.post("/newProduct", isAuthenticated, async (req, res, next) => {
     try{
-        const data= req.body
+        const data = req.body;
+        const response = await productModule.create({...data})
 
-const resposta = await productModule.create({...data})
-
-return res.status(200).json(resposta)
-
+        return res.status(200).json(response)
     }catch(err){
+        console.log(err);
         next(err);
     }
 })
