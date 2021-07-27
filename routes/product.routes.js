@@ -65,7 +65,7 @@ try{
 
 })
 
-router.get("/search",isAuthenticated,async(req,res,next)=>{
+router.get("/search",async(req,res,next)=>{
 
     
     try{
