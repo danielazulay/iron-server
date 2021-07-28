@@ -5,11 +5,11 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true, trim: true },
   passwordHash: { type: String, required: true },
   document: { type: String, required: true },
-  eddress: new mongoose.Schema({
+  address: new mongoose.Schema({
     street: { type: String, required: true, trim: true },
     neighbourhood: { type: String, required: true, trim: true },
+    district: { type: String, required: true, trim: true },
     city: { type: String, required: true, trim: true },
-    state: { type: String, required: true, trim: true },
     postalCode: { type: String, required: true, trim: true },
     number: { type: String, required: true, trim: true },
   }),

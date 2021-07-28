@@ -5,7 +5,6 @@ const isAdmin = require("../middlewares/isAdmin")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
-
 const productModule = require("../models/Product.model")
 
 router.post("/newProduct", isAuthenticated, attachCurrentUser, isAdmin, async (req, res, next) => {
@@ -42,7 +41,24 @@ router.put("/editProduct/:id", isAuthenticated, attachCurrentUser, isAdmin, asyn
 
 })
 
-router.delete("/deleteProduct/:id", isAuthenticated, attachCurrentUser, isAdmin, async (req, res, next) => {
+router.get("/productDetails/:id", async(req, res, next) => {
+
+    try{
+const { id } = req.params
+
+const response = await productModule.findOne( { _id: id } )
+return res.status(200).json( response )
+    }catch(err){
+        next(err)
+    }
+
+
+})
+
+router.delete("/deleteProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
+
+
+
 
     try {
         const {id} = req.params
@@ -51,8 +67,14 @@ router.delete("/deleteProduct/:id", isAuthenticated, attachCurrentUser, isAdmin,
 
         if (resposta.n < 1) {
 
-            return res.status(404).json({error: "produto nao existe"});
-        }
+return res.status(200).json({})
+} }catch (err) {
+    next(err);
+  }
+}
+);
+router.get("/getAllProducts",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
+try{
 
         return res.status(200).json({})
     } catch (err) {

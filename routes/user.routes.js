@@ -5,6 +5,8 @@ const userModel = require("../models/User.model")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
+const attachCurrentUser = require("../middlewares/attachCurrentUser.js")
+
 // Rota de cadastro do usuário
 router.post("/signup", async (req, res, next) => {
   try {
