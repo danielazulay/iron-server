@@ -9,6 +9,7 @@ const orderRouter  = require("./routes/order.routes")
 
 const app = express();
 
+app.use(cors({ origin: process.env.REACT_APP_URL }));
 app.use(express.json());
 app.use(cors());
 
@@ -31,11 +32,13 @@ async function init() {
     app.use("/", userRouter);
 
 
-    app.use("/", productRouter);
+console.log("Conectado ao banco de dados!");
 
-    app.use("/", orderRouter);
+app.use("/", userRouter);
 
+app.use("/", productRouter);
 
+app.use("/", orderRouter);
 
     app.listen(4000, () => console.log("Servidor rodando na porta 4000!"));
   } catch (err) {

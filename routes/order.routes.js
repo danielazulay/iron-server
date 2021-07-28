@@ -1,6 +1,5 @@
 const router = require("express").Router();
 
-
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser")
 
@@ -68,11 +67,6 @@ return res.status(200).json(result);
 
     }catch(err){next(err)}
 })
-
-
-
-
-
 
 router.delete("/deleteOrder/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 
