@@ -51,7 +51,7 @@ return res.status(200).json({})
   }
 }
 );
-router.get("/getAllProducts",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
+router.get("/getAllProducts",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
 try{
 
     const data= req.body
