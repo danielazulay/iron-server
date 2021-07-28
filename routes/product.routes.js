@@ -5,7 +5,6 @@ const isAdmin = require("../middlewares/isAdmin")
 
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
-
 const productModule = require("../models/Product.model")
 
 router.post("/newProduct",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
@@ -33,6 +32,20 @@ return res.status(200).json(resposta)
 }catch(err){
     next(err)
 }
+
+})
+
+router.get("/productDetails/:id", async(req, res, next) => {
+
+    try{
+const { id } = req.params
+
+const response = await productModule.findOne( { _id: id } )
+return res.status(200).json( response )
+    }catch(err){
+        next(err)
+    }
+
 
 })
 
