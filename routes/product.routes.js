@@ -35,6 +35,20 @@ return res.status(200).json(resposta)
 
 })
 
+router.get("/productDetails/:id", async(req, res, next) => {
+
+    try{
+const { id } = req.params
+
+const response = await productModule.findOne( { _id: id } )
+return res.status(200).json( response )
+    }catch(err){
+        next(err)
+    }
+
+
+})
+
 router.delete("/deleteProduct/:id",isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
 
 try{
