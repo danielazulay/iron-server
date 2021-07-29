@@ -7,6 +7,8 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 
 const productModule = require("../models/Product.model")
 
+const uploader = require('../config/cloudinary.config')
+
 router.post("/newProduct", isAuthenticated, attachCurrentUser, isAdmin, async (req, res, next) => {
     try {
         const data = req.body
@@ -73,15 +75,8 @@ return res.status(200).json({})
   }
 }
 );
-router.get("/getAllProducts",isAuthenticated,attachCurrentUser,async(req,res,next)=>{
-try{
 
-        return res.status(200).json({})
-    } catch (err) {
-        next(err);
-    }
-});
-router.get("/getAllProducts", isAuthenticated, attachCurrentUser, isAdmin, async (req, res, next) => {
+router.get("/getAllProducts",  async (req, res, next) => {
     try {
 
         const data = req.body
@@ -122,4 +117,16 @@ router.get("/search", async (req, res, next) => {
 
 
 });
+
+
+router.post('/upload',uploader.single('img'),isAuthenticated,attachCurrentUser,isAdmin,async(req,res,next)=>{
+if(!req.file){
+    return res.status(500).json({erro:'nao foi possivel completar o upload'})
+}
+
+return res.status(201).json({url:req.file.path})
+
+})
+
+
 module.exports = router;
