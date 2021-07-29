@@ -63,11 +63,11 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.get("/profile", isAuthenticated, async (req, res, next) => {
+router.get("/profile", isAuthenticated, attachCurrentUser, async (req, res, next) => {
   try {
     console.log(req.user);
 
-    return res.status(200).json(req.user);
+    return res.status(200).json(req.currentUser);
   } catch (err) {
     next(err);
   }

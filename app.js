@@ -10,7 +10,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors({ origin: process.env.REACT_APP_URL }));
+
 app.use(express.json());
 
 async function init() {
