@@ -76,7 +76,7 @@ return res.status(200).json({})
 }
 );
 
-router.get("/getAllProducts",  async (req, res, next) => {
+router.get("/getAllProducts", async (req, res, next) => {
     try {
 
         const data = req.body
@@ -94,14 +94,8 @@ router.get("/search", async (req, res, next) => {
     try {
 
         const {name} = req.query
-        const {category} = req.query
 
 
-        if (category) {
-            let productCategory = await productModule.find({category: category})
-            return res.status(200).json(productCategory);
-
-        }
         let productname = await productModule.find({
             name: {
                 $regex: name.toLocaleLowerCase()
