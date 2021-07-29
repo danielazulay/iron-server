@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: "USER",
   },
+  order: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
 });
 
 module.exports = mongoose.model("User", UserSchema);
