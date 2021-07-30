@@ -59,7 +59,7 @@ router.post("/create-checkout-session", isAuthenticated, async (req, res) => {
         // Esse formato de objeto é o formato requerido pela API do Stripe
         line_items.push({
           price_data: {
-            currency:"usd",
+            currency:"brl",
             product_data: {
               name: foundProduct.name,
               img: [foundProduct.img],
