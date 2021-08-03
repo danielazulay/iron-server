@@ -1,3 +1,10 @@
+
+Access-Control-Allow-Origin: "https://perfil.treinaweb.com.br";
+Access-Control-Allow-Methods: POST, GET;
+Access-Control-Allow-Headers: *;
+Access-Control-Max-Age: 86400;
+
+
 require("dotenv").config();
 const express = require("express");
 
@@ -11,11 +18,12 @@ const cors = require("cors");
 const app = express();
 
 
-app.use(express.json());
+
 
 async function init() {
   try {
     const db = await connectToDb();
+    app.use(express.json());
 
     console.log("Conectado ao banco de dados!");
     app.use(cors({ origin: process.env.REACT_APP_URL }));
