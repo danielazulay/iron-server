@@ -1,9 +1,4 @@
 
-Access-Control-Allow-Origin: "https://perfil.treinaweb.com.br";
-Access-Control-Allow-Methods: POST, GET;
-Access-Control-Allow-Headers: *;
-Access-Control-Max-Age: 86400;
-
 
 require("dotenv").config();
 const express = require("express");
