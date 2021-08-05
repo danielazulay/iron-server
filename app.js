@@ -27,7 +27,7 @@ async function init() {
       res.setHeader('Access-Control-Allow-Credentials', true);
       next();
   });
-    app.use(cors({ origin: process.env.REACT_APP_URL })); 
+/*     app.use(cors({ origin: process.env.REACT_APP_URL })); */ 
     app.use(express.json());
 
     console.log("Conectado ao banco de dados!");
