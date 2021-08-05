@@ -8,7 +8,7 @@ const connectToDb = require("./config/db.config");
 const userRouter = require("./routes/user.routes");
 const productRouter = require("./routes/product.routes");
 const orderRouter  = require("./routes/order.routes")
-const cors = require("cors");
+//const cors = require("cors");
 
 
 const app = express();
@@ -22,7 +22,7 @@ async function init() {
     app.use(express.json());
 
     console.log("Conectado ao banco de dados!");
-    app.use(cors({ origin: process.env.REACT_APP_URL }));
+   /*  app.use(cors({ origin: process.env.REACT_APP_URL })); */
     app.use("/", userRouter);
 
 

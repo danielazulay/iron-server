@@ -98,7 +98,7 @@ router.get("/search", async (req, res, next) => {
 console.log("Sou name --> ",name)
     let productname = await productModule.find({
       name: {
-        $regex: name.toLowerCase() ,$options:$i
+        $regex: name ,$options:$i
       },
     });
 
