@@ -7,7 +7,7 @@ function connectToDB() {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
-        withCredentials: true
+       
     })
 }
 

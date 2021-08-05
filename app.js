@@ -1,6 +1,6 @@
 
 
-
+const cors = require("cors");
 require("dotenv").config();
 const express = require("express");
 
@@ -8,7 +8,7 @@ const connectToDb = require("./config/db.config");
 const userRouter = require("./routes/user.routes");
 const productRouter = require("./routes/product.routes");
 const orderRouter  = require("./routes/order.routes")
-//const cors = require("cors");
+
 
 
 const app = express();
@@ -18,11 +18,13 @@ const app = express();
 
 async function init() {
   try {
+ 
     const db = await connectToDb();
+    app.use(cors({ origin: process.env.REACT_APP_URL })); 
     app.use(express.json());
 
     console.log("Conectado ao banco de dados!");
-   /*  app.use(cors({ origin: process.env.REACT_APP_URL })); */
+
     app.use("/", userRouter);
 
 
