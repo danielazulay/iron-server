@@ -19,7 +19,7 @@ const app = express();
 async function init() {
   try {
  
-    const db = await connectToDb();
+
     app.use(function(req, res, next) {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -27,6 +27,8 @@ async function init() {
       res.setHeader('Access-Control-Allow-Credentials', true);
       next();
   });
+
+  const db = await connectToDb();
 /*     app.use(cors({ origin: process.env.REACT_APP_URL })); */ 
     app.use(express.json());
 
