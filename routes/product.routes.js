@@ -71,10 +71,10 @@ router.delete(
     try {
       const { id } = req.params;
 
-      const resposta = await productModule.findOneAndDelete({ _id: id });
+      const resposta = await productModule.deleteOne({ _id: id });
 
-      if (resposta.n < 1) {
-        return res.status(200).json({});
+      if (resposta.n === 0) {
+        return res.status(404).json({ msg: "Product not found." });
       }
     } catch (err) {
       next(err);
@@ -98,7 +98,7 @@ router.get("/search", async (req, res, next) => {
 console.log("Sou name --> ",name)
     let productname = await productModule.find({
       name: {
-        $regex: name ,$options:$i
+        $regex: name.toLowerCase() ,$options:$i
       },
     });
 

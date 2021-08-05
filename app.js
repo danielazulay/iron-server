@@ -20,6 +20,13 @@ async function init() {
   try {
  
     const db = await connectToDb();
+    app.use(function(req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.setHeader('Access-Control-Allow-Credentials', true);
+      next();
+  });
     app.use(cors({ origin: process.env.REACT_APP_URL })); 
     app.use(express.json());
 
