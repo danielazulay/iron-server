@@ -14,7 +14,12 @@ const orderRouter  = require("./routes/order.routes")
 
 const app = express();
 
-
+app.use(cors({ origin: "*" , credentials:true}));  
+app.use(function(req,res,next){
+  res.header("Acess-Control-Allow-Origin","*");
+  res.header("Acess-Control-Allow-Headers","Origin,X-requested-With,Content-Type,Accept");
+  next();
+})
 
 
 async function init() {
@@ -24,11 +29,6 @@ async function init() {
 
   const db = await connectToDb();
 
-app.use(function(req,res,next){
-  res.header("Acess-Control-Allow-Origin","*");
-  res.header("Acess-Control-Allow-Headers","Origin,X-requested-With,Content-Type,Accept");
-  next();
-})
     app.use(express.json());
 
     console.log("Conectado ao banco de dados!");
