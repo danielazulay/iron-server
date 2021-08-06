@@ -8,7 +8,7 @@ const connectToDb = require("./config/db.config");
 const userRouter = require("./routes/user.routes");
 const productRouter = require("./routes/product.routes");
 const orderRouter  = require("./routes/order.routes")
-app.use(cors({ origin: "*" ,methods:"*", credentials:true})); 
+app.use(cors({ origin: "https://ironbeer.netlify.app" ,methods:"*", credentials:true})); 
 
 
 const app = express();
