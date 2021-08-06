@@ -91,14 +91,14 @@ router.get("/getAllProducts", async (req, res, next) => {
     next(err);
   }
 });
-
+// , $options: 'i' solve the problem with the regex can find even the second nasmes
 router.get("/search", async (req, res, next) => {
   try {
     const { name } = req.query;
 console.log("Sou name --> ",name)
     let productname = await productModule.find({
       name: {
-        $regex: name.toLowerCase() ,$options:$i
+        $regex: name.toLowerCase() , $options: 'i'
       },
     });
 
