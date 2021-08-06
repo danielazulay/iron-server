@@ -1,6 +1,6 @@
 
 
-const cors = require("cors");
+//const cors = require("cors");
 require("dotenv").config();
 const express = require("express");
 
@@ -8,18 +8,18 @@ const connectToDb = require("./config/db.config");
 const userRouter = require("./routes/user.routes");
 const productRouter = require("./routes/product.routes");
 const orderRouter  = require("./routes/order.routes")
-
+var proxy = require('http-proxy-middleware')
 
 
 
 const app = express();
 
-app.use(cors({ origin: "*" , credentials:true}));  
+/* app.use(cors({ origin: "*" , credentials:true}));  
 app.use(function(req,res,next){
   res.header("Acess-Control-Allow-Origin","*");
   res.header("Acess-Control-Allow-Headers","Origin,X-requested-With,Content-Type,Accept");
   next();
-})
+}) */
 
 
 async function init() {
@@ -30,6 +30,7 @@ async function init() {
   const db = await connectToDb();
 
     app.use(express.json());
+    app.use('/api', proxy({ target: 'https://ironbeer.netlify.app', changeOrigin: true }))
 
     console.log("Conectado ao banco de dados!");
 
