@@ -23,7 +23,7 @@ async function init() {
 
 
   const db = await connectToDb();
- app.use(cors({ origin: "*" , credentials:true})); 
+
 app.use(function(req,res,next){
   res.header("Acess-Control-Allow-Origin","*");
   res.header("Acess-Control-Allow-Headers","Origin,X-requested-With,Content-Type,Accept");
