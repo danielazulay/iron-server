@@ -13,8 +13,8 @@ var proxy = require('http-proxy-middleware')
 
 
 const app = express();
-
-/* app.use(cors({ origin: "*" , credentials:true}));  
+app.use(cors({ origin: "*" }));  
+/* 
 app.use(function(req,res,next){
   res.header("Acess-Control-Allow-Origin","*");
   res.header("Acess-Control-Allow-Headers","Origin,X-requested-With,Content-Type,Accept");
@@ -30,7 +30,7 @@ async function init() {
   const db = await connectToDb();
 
     app.use(express.json());
-    app.use('/api', proxy({ target: 'https://ironbeer.netlify.app', changeOrigin: true }))
+
 
     console.log("Conectado ao banco de dados!");
 
