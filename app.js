@@ -39,11 +39,11 @@ async function init() {
 
 console.log("Conectado ao banco de dados!");
 
-app.use("/", userRouter);
+app.use("/api", userRouter);
 
-app.use("/", productRouter);
+app.use("/api", productRouter);
 
-app.use("/", orderRouter);
+app.use("/api", orderRouter);
 
     app.listen(4000, () => console.log("Servidor rodando na porta 4000!"));
   } catch (err) {
