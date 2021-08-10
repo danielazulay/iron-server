@@ -16,4 +16,4 @@ async function connect() {
 }
 
 
-module.exports = connectToDB
+module.exports = connect
