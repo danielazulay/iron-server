@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors({ origin: "*" }));  
+app.use(cors({ origin: process.env.REACT_APP_URL }));  
 
 /* const connectToDb = require("./config/db.config"); */
 
